@@ -19,7 +19,11 @@
 {Make a list of websites that you found helpful in this project}
 
 - [Visual Studio Code - Getting Started with Java in VSCode](https://code.visualstudio.com/docs/java/java-tutorial)
-- [Web Site Name](http://url.link.goes.here)
+- [W3Schools - Java Variables](https://www.w3schools.com/java/java_variables.asp)
+- [W3Schools - Java User Input (Scanner Class)](https://www.w3schools.com/java/java_user_input.asp)
+- [W3Schools - Java Conditions and If Statements](https://www.w3schools.com/java/java_conditions.asp)
+- [W3Schools - Java Operators](https://www.w3schools.com/java/java_operators.asp)
+- []()
 
 # Future Work
 
