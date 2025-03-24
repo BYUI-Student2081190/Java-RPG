@@ -7,6 +7,15 @@
 
  // hello and main functions.
  public class hello {
+    // Function that Adds two numbers.
+    public static int add(int numOne, int numTwo) {
+        // Add the numbers together.
+        int sum = numOne + numTwo;
+        // Now return.
+        return sum;
+    }
+
+    // Main Function.
     public static void main(String[] args) {
         // Create a new scanner object to obtain the inputs.
         Scanner scanner = new Scanner(System.in); // Must live inside of main.
@@ -38,6 +47,12 @@
             // Display normal message.
             System.out.println(userNum + "? That is not a bad number at all! I like it! :)");
         }
+
+        // Call a function.
+        int numOne = 25;
+        int numTwo = 25;
+        int ans = add(numOne, numTwo);
+        System.out.println("I can also call a function!\nHere is my answer after I added these numbers: " + ans);
 
         // Close scanner to save on resources. Good Practice.
         scanner.close();
