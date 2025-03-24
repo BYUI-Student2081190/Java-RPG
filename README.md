@@ -23,6 +23,7 @@
 - [W3Schools - Java User Input (Scanner Class)](https://www.w3schools.com/java/java_user_input.asp)
 - [W3Schools - Java Conditions and If Statements](https://www.w3schools.com/java/java_conditions.asp)
 - [W3Schools - Java Operators](https://www.w3schools.com/java/java_operators.asp)
+- [W3Schools - Java Methods](https://www.w3schools.com/java/java_methods.asp)
 - []()
 
 # Future Work
