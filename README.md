@@ -16,15 +16,17 @@
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
 - [Visual Studio Code - Getting Started with Java in VSCode](https://code.visualstudio.com/docs/java/java-tutorial)
 - [W3Schools - Java Variables](https://www.w3schools.com/java/java_variables.asp)
 - [W3Schools - Java User Input (Scanner Class)](https://www.w3schools.com/java/java_user_input.asp)
 - [W3Schools - Java Conditions and If Statements](https://www.w3schools.com/java/java_conditions.asp)
 - [W3Schools - Java Operators](https://www.w3schools.com/java/java_operators.asp)
 - [W3Schools - Java Methods](https://www.w3schools.com/java/java_methods.asp)
-- []()
+- [W3Schools - Java For Loops](https://www.w3schools.com/java/java_for_loop.asp)
+- [W3Schools - Java While Loops](https://www.w3schools.com/java/java_while_loop.asp)
+- [W3Schools - Java Do-While Loops](https://www.w3schools.com/java/java_while_loop_do.asp)
+- [W3Schools - Java For-Each Loops](https://www.w3schools.com/java/java_foreach_loop.asp)
+- [W3Schools - Java ArrayList](https://www.w3schools.com/java/java_arraylist.asp)
 
 # Future Work
 
