@@ -5,5 +5,133 @@
  */
 
 public class Character {
-    
+    // Attributes of the Character.
+    private String firstName; // Does nothing for the character. Just fun detail.
+    private String lastName; // Does nothing for the character. Just fun detail.
+    private int gender; // 1 = male, 2 = female. // Does nothing for the character. Just fun detail.
+    private int age; // Does nothing for the character. Just fun detail.
+    private String species; // Does nothing for the character. Just fun detail.
+    private int job; // 1 = warrior, 2 = mage, 3 = healer, 4 = clown.
+    private int exp; // Current experiance. Maybe use a equation like this to calc levels, XP_required = base_xp * (growth_factor^level).
+    private int level = 1; // Current level. Default is 1.
+    private int health; // Hp. Additional determined on hit dice for hp of job.
+    private int magic; // Mp. Additional determined on hit dice for mp of job.
+    private int offence; // Total Physical damage, stats and items equiped.
+    private int defence; // Resistance to Physical damage from equiped items and stats.
+    private int strength; // Physical damage.
+    private int resistance; // Resistance to physical damage.
+    private int mind; // Magic damage.
+    private int spirit; // Healing effect.
+    private int intellect; // Magic resistance.
+    private double vision; // Chance of a critical strike. This is a 1/20 chance to happen.
+    private double growthFactor = 0.15; // Used in helping level up characters.
+    private int hitDiceHp; // This is a number that is determined by job to help with level up stats. 10 = warrior, 6 = mage, 5 = healer, clown = 8.
+    private int hitDiceMp; // This is a number that is determined by job to help with level up stats. 4 = warrior, 10 = mage, 10 = healer, clown = 6.
+    // Add lists for armor equipment, weapons, and items.
+
+    // Constructor - Used to set the name, gender, age, and job.
+    public Character(String firstName, String lastName, int gender, int age, String species, int job) {
+        // Set these values when creating the object.
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
+        this.species = species;
+        this.job = job;
+        // Set these based on job.
+        switch (this.job) {
+            case 1:
+                // Set the values for a warrior.
+                this.hitDiceHp = 10;
+                this.hitDiceMp = 4;
+                this.strength = 15;
+                this.resistance = 12;
+                this.mind = 4;
+                this.spirit = 8;
+                this.intellect = 7;
+                this.vision = 0.8;
+                this.offence = 1;
+                this.defence = 1;
+                break;
+            case 2:
+                // Set the values for a mage.
+                this.hitDiceHp = 6;
+                this.hitDiceMp = 10;
+                this.strength = 8;
+                this.resistance = 9;
+                this.mind = 15;
+                this.spirit = 7;
+                this.intellect = 12;
+                this.vision = 0.6;
+                this.offence = 1;
+                this.defence = 1;
+                break;
+            case 3:
+                // Set the values for healer.
+                this.hitDiceHp = 5;
+                this.hitDiceMp = 10;
+                this.strength = 4;
+                this.resistance = 7;
+                this.mind = 10;
+                this.spirit = 16;
+                this.intellect = 11;
+                this.vision = 0.4;
+                this.offence = 1;
+                this.defence = 1;
+                break;
+            case 4:
+                // Set the values for clown.
+                this.hitDiceHp = 8;
+                this.hitDiceMp = 6;
+                this.strength = 7;
+                this.resistance = 7;
+                this.mind = 7;
+                this.spirit = 7;
+                this.intellect = 7;
+                this.vision = 0.7;
+                this.offence = 1;
+                this.defence = 1;
+                break;
+        }
+    }
+
+    // Getter Functions.
+    public String getStats() {
+        // String Gender.
+        String genderString;
+        // String Job.
+        String jobString;
+
+        switch (gender) {
+            case 1:
+                genderString = "Male";
+                break;
+            case 2:
+                genderString = "Female";
+                break;
+            default:
+            genderString = "Unknown";
+        }
+
+        switch (job) {
+            case 1:
+                jobString = "Warrior";
+                break;
+            case 2:
+                jobString = "Mage";
+                break;
+            case 3:
+                jobString = "Healer";
+                break;
+            case 4:
+                jobString = "Clown";
+                break;
+            default:
+                jobString = "Unknown";
+        }
+
+        // Obtain all the stats and return as a string to the user.
+        String stats = "Character Stats: \nFirst Name: " + firstName + "\nLast Name: " + lastName + "\nGender: " + genderString + "\nAge: " + age + "\nSpecies: " + species + "\nJob: " + jobString + "\nExp: " + exp + "\nLevel: " + level + "\nHP: " + health + "\nMP: " + magic + "\nOffence: " + offence + "\nDefence: " + defence + "\nStrength: " + strength + "\nResistance: " + resistance + "\nMind: " + mind + "\nSpirit: " + spirit + "\nIntellect: " + intellect + "\nVision: " + vision + "%";
+        return stats;
+    }
 }
