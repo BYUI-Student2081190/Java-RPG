@@ -1,5 +1,5 @@
 /**
- * Hello Class Main - Start with this file and edit as we go.
+ * Hello Class Main - This file was used to practice coding in Java. Now it is retired.
  */
 
  // Import some libraries to use.
