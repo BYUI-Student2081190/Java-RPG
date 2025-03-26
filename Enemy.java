@@ -43,4 +43,10 @@ public class Enemy {
         //Return the health.
         return enemyHealth;
     }
+
+    // Get the enemy stats.
+    public String getEnemyAllStats(){
+        // Return all the stats for testing.
+        return "Enemy Stats: \nEnemy Name: " + enemyName + "\nEnemy Id: " + enemyId + "\nHP: " + enemyHealth + "\nAttack: " + enemyAttack + "\nMind: " + enemyMind + "\nArmor: " + enemyArmor + "\nMagic Def: " + enemyMagicDef + "\nEXP Drop: " + enemyExpDrop + "\nItem Drop Rate: " + dropRate;
+    }
 }

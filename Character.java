@@ -17,8 +17,8 @@ public class Character {
     private int level = 1; // Current level. Default is 1.
     private int health; // Hp. Additional determined on hit dice for hp of job.
     private int magic; // Mp. Additional determined on hit dice for mp of job.
-    private int offence; // Total Physical damage, stats and items equiped.
-    private int defence; // Resistance to Physical damage from equiped items and stats.
+    private int offence; // Total Physical damage.
+    private int defence; // Resistance to Physical damage.
     private int strength; // Physical damage.
     private int resistance; // Resistance to physical damage.
     private int mind; // Magic damage.
@@ -53,8 +53,8 @@ public class Character {
                 this.spirit = 8;
                 this.intellect = 7;
                 this.vision = 0.8;
-                this.offence = 1;
-                this.defence = 1;
+                this.offence = 20;
+                this.defence = 15;
                 this.health = this.hitDiceHp * 10; // Calculates base HP.
                 this.magic = this.hitDiceMp * 10; // Calculates base MP.
                 this.maxHealth = this.health;
@@ -69,8 +69,8 @@ public class Character {
                 this.spirit = 7;
                 this.intellect = 12;
                 this.vision = 0.6;
-                this.offence = 1;
-                this.defence = 1;
+                this.offence = 8;
+                this.defence = 10;
                 this.health = this.hitDiceHp * 10;
                 this.magic = this.hitDiceMp * 10;
                 this.maxHealth = this.health;
@@ -85,8 +85,8 @@ public class Character {
                 this.spirit = 16;
                 this.intellect = 11;
                 this.vision = 0.4;
-                this.offence = 1;
-                this.defence = 1;
+                this.offence = 5;
+                this.defence = 10;
                 this.health = this.hitDiceHp * 10;
                 this.magic = this.hitDiceMp * 10;
                 this.maxHealth = this.health;
@@ -101,8 +101,8 @@ public class Character {
                 this.spirit = 7;
                 this.intellect = 7;
                 this.vision = 0.7;
-                this.offence = 1;
-                this.defence = 1;
+                this.offence = 7;
+                this.defence = 7;
                 this.health = this.hitDiceHp * 10;
                 this.magic = this.hitDiceMp * 10;
                 this.maxHealth = this.health;
