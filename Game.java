@@ -409,6 +409,9 @@ public class Game {
                 clearConsole();
             }
 
+            // Now fully heal the character.
+            character.fullHeal();
+            
             // Now return to the past function.
             return;
         }
