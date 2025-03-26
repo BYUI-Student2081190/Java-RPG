@@ -61,7 +61,7 @@ public class Game {
         private static void initMonsters() {
             // Start adding the data to the HashMap.
             // Enemy rules: enemyName, enemyId, enemyHealth, enemyAttack, enemyMind, enemyArmor, enemyMagicDef, enemyExpDrop, dropRate
-            monsterHashMap.put(001, "Goblin!--!--!001!--!--!90!--!--!20!--!--!0!--!--!0!--!--!0!--!--!25!--!--!80");
+            monsterHashMap.put(001, "Goblin!--!--!001!--!--!20!--!--!10!--!--!0!--!--!0!--!--!0!--!--!25!--!--!80");
 
             // Return to the main function.
             return;
@@ -69,11 +69,27 @@ public class Game {
 
         // This function displays the battle UI with the enemy name and hp.
         private static void displayMonsterData(Enemy currEnemy) {
+            // Make it so if their health goes below 0 that it displays as 0 on the ui.
+            int enemyHealth;
+            int characterHealth;
+
+            // Do this for the enemy.
+            if (currEnemy.isDead()) {
+                enemyHealth = 0;
+            } else {
+                enemyHealth = currEnemy.getEnemyHealth();
+            }
+
+            if (character.isDead()) {
+                characterHealth = 0;
+            } else {
+                characterHealth = character.getHealth();
+            }
             // Display it to the user. This makes it easier to read down below.
-            System.out.println("Enemy Name: " + currEnemy.getEnemyName() + "     HP: " + currEnemy.getEnemyHealth());
+            System.out.println("Enemy Name: " + currEnemy.getEnemyName() + "     HP: " + enemyHealth);
             System.out.println("-------------------------------------------------------------------------------------");
             System.out.println();
-            System.out.println("Name: " + character.getCharacterName() + " HP: " + character.getHealth() + "MP: " + character.getMagic());
+            System.out.println("Name: " + character.getCharacterName() + "     HP: " + characterHealth + " MP: " + character.getMagic());
             System.out.println("-------------------------------------------------------------------------------------");
             System.out.println();
         }
@@ -222,6 +238,24 @@ public class Game {
                 }
             }
 
+            // Check to see if the player has been defeated or the enemy has. Give messages based on those conditions.
+            if (character.isDead()) {
+                clearConsole();
+                displayMonsterData(currEnemy);
+                printLetterByLetter(character.getCharacterName() + " has been defeated...");
+                printLetterByLetter("Press Enter to Continue...");
+                scanner.nextLine();
+            } else {
+                clearConsole();
+                displayMonsterData(currEnemy);
+                printLetterByLetter(currEnemy.getEnemyName() + " has been defeated! " + character.getCharacterName() + " has won the battle!");
+                printLetterByLetter(character.getCharacterName() + " has gained " + currEnemy.obtainExp() + " EXP!");
+                // Add the exp to the character and test for levels.
+                // Add condition if the character levels up.
+                printLetterByLetter("Press Enter to Continue...");
+                scanner.nextLine();
+            }
+
             // Now return to the previous function.
             return;
         }
@@ -367,6 +401,8 @@ public class Game {
 
             // Now create a for loop that calls the battle function to create battles based on the encounters.
             for (int i = 1; i <= encounters; i ++) {
+                // Clear the console on each loop just in case it is needed.
+                clearConsole();
                 // Make sure the character is still alive each loop.
                 if (character.isDead() != true) {
                     // Let the player get their barrings and start them with this message.
@@ -411,7 +447,7 @@ public class Game {
 
             // Now fully heal the character.
             character.fullHeal();
-            
+
             // Now return to the past function.
             return;
         }

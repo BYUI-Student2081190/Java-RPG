@@ -78,4 +78,9 @@ public class Enemy {
     public int attackDamage() {
         return enemyAttack;
     }
+
+    // Function to get and send the exp drop.
+    public int obtainExp() {
+        return enemyExpDrop;
+    }
 }

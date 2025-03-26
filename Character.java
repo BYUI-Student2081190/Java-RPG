@@ -61,6 +61,7 @@ public class Character {
                 this.health = this.hitDiceHp * 10; // Calculates base HP.
                 this.magic = this.hitDiceMp * 10; // Calculates base MP.
                 this.maxHealth = this.health;
+                this.maxMagic = this.magic;
                 break;
             case 2:
                 // Set the values for a mage.
@@ -77,6 +78,7 @@ public class Character {
                 this.health = this.hitDiceHp * 10;
                 this.magic = this.hitDiceMp * 10;
                 this.maxHealth = this.health;
+                this.maxMagic = this.magic;
                 break;
             case 3:
                 // Set the values for healer.
@@ -93,6 +95,7 @@ public class Character {
                 this.health = this.hitDiceHp * 10;
                 this.magic = this.hitDiceMp * 10;
                 this.maxHealth = this.health;
+                this.maxMagic = this.magic;
                 break;
             case 4:
                 // Set the values for clown.
@@ -109,6 +112,7 @@ public class Character {
                 this.health = this.hitDiceHp * 10;
                 this.magic = this.hitDiceMp * 10;
                 this.maxHealth = this.health;
+                this.maxMagic = this.magic;
                 break;
         }
     }
