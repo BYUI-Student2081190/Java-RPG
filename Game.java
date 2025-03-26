@@ -5,13 +5,16 @@
 
 // Imported Libraries.
 import java.util.Scanner; // Import the scanner class to read inputs from user.
-// import java.util.ArrayList; // Import the ArrayList class to create ArrayLists in program.
+import java.util.Arrays; // This is used for conversions of data.
+import java.util.ArrayList; // Import the ArrayList class to create ArrayLists in program.
+import java.util.HashMap; // Import the HashMap class to create HashMaps, and also to create a storage for enemies and maybe items.
 
 public class Game {
     // Global Variables.
     private static Scanner scanner = new Scanner(System.in); // Added Scanner as a global variable.
     private static int gameSpeed = 25; // This changes how fast text flows in the game. This is currrently 25 miliseconds.
     public static Character character; // Default = null. This is the character made by the user for the game.
+    private static HashMap<Integer, String> monsterHashMap = new HashMap<>(); // This will store all the monsters.
             
         // This must be at the top, this function clears the console for better UI.
         public static void clearConsole() {
@@ -52,6 +55,249 @@ public class Game {
             } catch (NumberFormatException e) {
                 return false;
             }
+        }
+
+        // This function creates all the monster data in the hashmap before the game starts.
+        private static void initMonsters() {
+            // Start adding the data to the HashMap.
+            // Enemy rules: enemyName, enemyId, enemyHealth, enemyAttack, enemyMind, enemyArmor, enemyMagicDef, enemyExpDrop, dropRate
+            monsterHashMap.put(001, "Goblin!--!--!001!--!--!90!--!--!5!--!--!0!--!--!0!--!--!0!--!--!25!--!--!80");
+
+            // Return to the main function.
+            return;
+        }
+
+        // This function handles rpg combat with the enemy.
+        private static void battleManager() {
+            // Create the enemy you will fight edit this to be based on level for now just make the goblin.
+            String monsterData = monsterHashMap.get(001);
+
+            // Now split the data to make the monster.
+            String[] monsterDataArray = monsterData.split("!--!--!");
+            // Convert to an ArrayList using the Array class.
+            ArrayList<String> monsterArrayList = new ArrayList<>(Arrays.asList(monsterDataArray));
+
+            // Create variables to hold each enemy's stats.
+            String enemyName = "Nothing";
+            int enemyId = 0;
+            int enemyHealth = 0;
+            int enemyAttack = 0;
+            int enemyMind = 0;
+            int enemyArmor = 0;
+            int enemyMagicDef = 0;
+            int enemyExpDrop = 0;
+            int dropRate = 0;
+            int loopCount = 1;
+
+            // Now loop through the data and create the monster for the battle.
+            for (String stat : monsterArrayList) {
+                // Variable to hold a number version of stat.
+                int numStat = 0;
+                // For each of these test if they are num. Also save them with the attribute that they deserve.
+                if (isInt(stat)) {
+                    // Make this equal to the stat as a num.
+                    numStat = Integer.parseInt(stat);
+                }
+
+                switch (loopCount) {
+                    case 1:
+                        enemyName = stat;
+                        break;
+                    case 2:
+                        enemyId = numStat;
+                        break;
+                    case 3:
+                        enemyHealth = numStat;
+                        break;
+                    case 4:
+                        enemyAttack = numStat;
+                        break;
+                    case 5:
+                        enemyMind = numStat;
+                        break;
+                    case 6:
+                        enemyArmor = numStat;
+                        break;
+                    case 7:
+                        enemyMagicDef = numStat;
+                        break;
+                    case 8:
+                        enemyExpDrop = numStat;
+                        break;
+                    case 9:
+                        dropRate = numStat;
+                        break;
+                }
+
+                // Now add one to loop count to keep it consistant with the data.
+                loopCount++;
+            }
+
+            // Now create the enemy object.
+            Enemy currEnemy = new Enemy(enemyName, enemyId, enemyHealth, enemyAttack, enemyMind, enemyArmor, enemyMagicDef, enemyExpDrop, dropRate);
+
+            // Now test display the enemy to the console.
+            System.out.println("Enemy Name: " + currEnemy.getEnemyName() + "     HP: " + currEnemy.getEnemyHealth());
+            System.out.println("-------------------------------------------------------------------------------------");
+            System.out.println();
+            printLetterByLetter("What would you like to do?");
+            scanner.nextLine(); // Have it like this right now for testing.
+        }
+
+        // This function is used to run the quest that the player with run on.
+        private static void questManager() {
+            // Add the menu to choose the quest. This function will work heavily with the battle function.
+            // Add some story to introduce the player to the world.
+            if (character.getCharacterFirstTimeStat()) {
+                // Quickly set the character's firsttimestat to false.
+                character.setCharacterFirstTimeStat();
+
+                // If a character is brand new this plays.
+                printLetterByLetter("Sue the Guild Receptionist:");
+                printLetterByLetter("Welcome to the 'Adventurer's Guild' now I bet you are excited to travel the world");
+                printLetterByLetter("in search of treasure and the like. But let me warn you the evil and most cruel");
+                printLetterByLetter("'Wizard' of the dark has taken over the country. He has made his monsterous minions");
+                printLetterByLetter("take over the other towns and areas in the land. I will not try to stop you if you");
+                printLetterByLetter("insist on going out there. But don't come crying to me if you get beaten out there.");
+                System.out.println();
+                printLetterByLetter("Press Enter to continue...");
+                scanner.nextLine();
+
+                // Next part of story.
+                clearConsole();
+                printLetterByLetter("Mark the Guild Master:");
+                printLetterByLetter("Now Sue, I don't need you scaring another brave person out of this guild. Let me remind");
+                printLetterByLetter("you who gives you your paycheck every evening. Welcome " + character.getCharacterName() + " to our guild.");
+                printLetterByLetter("I am guessing you are a brave soul who wants to take on the evil wizard right? Well you could not have");
+                printLetterByLetter("come to a better place! We need more young " + character.getCharacterStringGender() + "s like you in the world.");
+                printLetterByLetter("Well if you think you got what it takes, I suggest you accept a quest and see if you can run all the way");
+                printLetterByLetter("through it! Good luck! Sue make sure to take good care of this " + character.getCharacterStringGender() + ".");
+                System.out.println();
+                printLetterByLetter("Press Enter to continue...");
+                scanner.nextLine();
+
+                // Final part of story with user input to go on the quest.
+                clearConsole();
+                printLetterByLetter("Sue the Guild Receptionist:");
+                printLetterByLetter("*sigh* Stinking Mark, always getting on me like that. Well I guess I can get you set up now.");
+                printLetterByLetter("Here is how a quest runs, you go out and fight your way through the quest, and then you encounter");
+                printLetterByLetter("a bigger monster at the end. If you end up getting defeated that is ok, just come back here and we will");
+                printLetterByLetter("stitch you back together again, and no that is not in my job description. You can either do a small,");
+                printLetterByLetter("medium, or large quest. Each one requires you to fight a different number of monsters before you finish.");
+                printLetterByLetter("Since you are new, I suggest a 'small' quest, but who am I to stop you?");
+                System.out.println();
+                printLetterByLetter("Press Enter to continue...");
+                scanner.nextLine();
+            } else {
+                // Special story for returning character.
+                printLetterByLetter("Sue the Guild Receptionist:");
+                printLetterByLetter("Oh hey welcome back! Is that scrape new? I am only pulling your leg, don't look like I hit you with");
+                printLetterByLetter("a chicken or something. Jeez, what did I do to deserve working with you?");
+                System.out.println();
+                printLetterByLetter("Press Enter to continue...");
+                scanner.nextLine();
+            }
+
+            // Option menu. Create a loop and some humor.
+            boolean breakLoop = false;
+            boolean firstTime = true; // Create a goofy variable to make Sue upset at the player if they do not select a proper option.
+            int choice = 0; // Place this up here so it can be used after the loop breaks.
+
+            while (breakLoop != true) {
+                clearConsole();
+                if (firstTime == true){
+                    // First time message.
+                    printLetterByLetter("Sue the Guild Receptionist:");
+                    printLetterByLetter("Ok " + character.getCharacterName() + ", what type of quest are you thinking of doing?");
+                    System.out.println();
+                    printLetterByLetter("1.) Small Quest (About: 5 Monsters)");
+                    printLetterByLetter("2.) Medium Quest (About: 10 Monsters)");
+                    printLetterByLetter("3.) Large Queset (About: 15 Monsters)");
+                    System.out.println();
+                    printLetterByLetter("Hun, please tell me the number of the option you would like to do.");
+                    // Quickly set firsttime to false.
+                    firstTime = false;
+                } else {
+                    // Second time message.
+                    printLetterByLetter("Sue the Guild Receptionist:");
+                    printLetterByLetter(character.getCharacterName() + ", hun, this honestly is not that hard to do.");
+                    printLetterByLetter("Just tell me the number of the one you want to do out of these three:");
+                    System.out.println();
+                    printLetterByLetter("1.) Small Quest (About: 5 Monsters)");
+                    printLetterByLetter("2.) Medium Quest (About: 10 Monsters)");
+                    printLetterByLetter("3.) Large Queset (About: 15 Monsters)");
+                    System.out.println();
+                    printLetterByLetter("Hun, if you just do this, then we can both get a break from eachother...");
+                }
+                // Create a variable to hold the user response.
+                String userResponse;
+                userResponse = scanner.nextLine();
+
+                // Check the response and send the player on their quest.
+                if (isInt(userResponse)){
+                    // Parse the int and move on.
+                    choice = Integer.parseInt(userResponse);
+
+                    // Check to see if choice is in range.
+                    if (choice >= 1 && choice <= 3) {
+                        // Set the loop to break because choice is good.
+                        clearConsole();
+                        breakLoop = true;
+                    } else {
+                        clearConsole();
+                        printLetterByLetter("Your response was not a selectable number, please enter 1, 2, or 3.");
+                        printLetterByLetter("Press Enter to continue...");
+                        scanner.nextLine();
+                        clearConsole();
+                    }
+                } else {
+                    // Let the user know their error.
+                    clearConsole();
+                    printLetterByLetter("Your response was not a number, please enter a number.");
+                    printLetterByLetter("Press Enter to continue...");
+                    scanner.nextLine();
+                    clearConsole();
+                }
+            }
+            // Create a varible to hold how many monsters the player must face.
+            int encounters;
+
+            switch (choice) {
+                case 1:
+                    encounters = 5; // Small.
+                    break;
+                case 2:
+                    encounters = 10; // Medium.
+                    break;
+                case 3:
+                    encounters = 15; // Large.
+                    break;
+                default:
+                    encounters = 5; // Defaults to small if problem happens.
+            }
+            // Create one last piece of story to let the player know everything worked.
+            printLetterByLetter("Sue the Guild Receptionist:");
+            printLetterByLetter("You are all set hun, knock em dead!");
+            System.out.println();
+            printLetterByLetter("Press Enter to continue... are you scared?");
+            scanner.nextLine();
+            clearConsole();
+
+            // Now create a for loop that calls the battle function to create battles based on the encounters.
+            for (int i = 1; i <= encounters; i ++) {
+                // Let the player get their barrings and start them with this message.
+                printLetterByLetter("As you go about your quest a monster appears! Battle: " + i);
+                System.out.println();
+                printLetterByLetter("Press Enter to begin the match!");
+                scanner.nextLine();
+                clearConsole();
+
+                // Call the function.
+                battleManager();
+            }
+
+            // For now in the testing phase just return after this.
+            return;
         }
     
         // This function contains the Character Creator.
@@ -328,6 +574,9 @@ public class Game {
 
     // Main class. This runs at the start.
     public static void main(String[] args) {
+        // Before the game even runs, start preparing game.
+        initMonsters();
+
         // Create a Title Screen for the player.
         System.out.println("JAVA QUEST\n");
         System.out.println("Press Enter to Start... ");
@@ -342,10 +591,12 @@ public class Game {
             // Display messages to the user.
             printLetterByLetter("Welcome to the land of Javopia.\nA world full of wonder and adventure.");
             printLetterByLetter("Tell me adventurer? What would you like to do first?");
+            // Create the character.
             printLetterByLetter("1.) Create Character");
-            // Add Quest Option. (Cannot go on a quest until the character has been created.)
+            // Quest Option. (Cannot go on a quest until the character has been created.)
+            printLetterByLetter("2.) Go On a Quest");
             // Add Settings Option.
-            printLetterByLetter("2.) Quit");
+            printLetterByLetter("3.) Quit");
             printLetterByLetter("Please type the number of the option you would like: ");
             userResponse = scanner.nextLine();
 
@@ -363,6 +614,28 @@ public class Game {
                         characterMenu();
                         break;
                     case 2:
+                        // Clear the console for next action.
+                        clearConsole();
+                        // Check and see if a character has been made, or loaded.
+                        if (character == null) {
+                            // Let the player know they need to have a character before they can go on a quest.
+                            printLetterByLetter("I know you are excited to go on a quest, however...");
+                            printLetterByLetter("It would be wise to have a character before you go.");
+                            printLetterByLetter("I don't think you can do much in the state you are in.");
+                            System.out.println();
+                            printLetterByLetter("Press Enter to return to the previous menu, and please come back\nwith a character.");
+                            scanner.nextLine(); 
+                            // After they press enter clear the console.
+                            clearConsole();
+                        } else {
+                            // Clear the console again.
+                            clearConsole();
+                            // Call the next function to start the quest.
+                            questManager();
+                        }
+                        // Break the case.
+                        break;
+                    case 3:
                         // Clear the console for the next action.
                         clearConsole();
                         // Quit the game.

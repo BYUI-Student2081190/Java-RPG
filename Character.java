@@ -12,7 +12,8 @@ public class Character {
     private int age; // Does nothing for the character. Just fun detail.
     private String species; // Does nothing for the character. Just fun detail.
     private int job; // 1 = warrior, 2 = mage, 3 = healer, 4 = clown.
-    private int exp; // Current experiance. Maybe use a equation like this to calc levels, XP_required = base_xp * (growth_factor^level).
+    private int exp; // Current experiance. Maybe use a equation like this to calc levels, XP_required = base_xp * (level^growth_factor).
+    private int nextLevel = 0; // Default this to 0 so the first level up can happen after the first battle.
     private int level = 1; // Current level. Default is 1.
     private int health; // Hp. Additional determined on hit dice for hp of job.
     private int magic; // Mp. Additional determined on hit dice for mp of job.
@@ -27,7 +28,9 @@ public class Character {
     private double growthFactor = 0.15; // Used in helping level up characters.
     private int hitDiceHp; // This is a number that is determined by job to help with level up stats. 10 = warrior, 6 = mage, 5 = healer, clown = 8.
     private int hitDiceMp; // This is a number that is determined by job to help with level up stats. 4 = warrior, 10 = mage, 10 = healer, clown = 6.
-    // Add lists for armor equipment, weapons, and items.
+    private boolean firstTime = true; // This is a stat that tests to see if a character has been used before. If so it skips part of the story.
+    private int maxHealth; // This is here to make sure a character does not heal over it's max health.
+    // Add lists for armor equipment, weapons, abilities, and items.
 
     // Constructor - Used to set the name, gender, age, and job.
     public Character(String firstName, String lastName, int gender, int age, String species, int job) {
@@ -52,6 +55,9 @@ public class Character {
                 this.vision = 0.8;
                 this.offence = 1;
                 this.defence = 1;
+                this.health = this.hitDiceHp * 10; // Calculates base HP.
+                this.magic = this.hitDiceMp * 10; // Calculates base MP.
+                this.maxHealth = this.health;
                 break;
             case 2:
                 // Set the values for a mage.
@@ -65,6 +71,9 @@ public class Character {
                 this.vision = 0.6;
                 this.offence = 1;
                 this.defence = 1;
+                this.health = this.hitDiceHp * 10;
+                this.magic = this.hitDiceMp * 10;
+                this.maxHealth = this.health;
                 break;
             case 3:
                 // Set the values for healer.
@@ -78,6 +87,9 @@ public class Character {
                 this.vision = 0.4;
                 this.offence = 1;
                 this.defence = 1;
+                this.health = this.hitDiceHp * 10;
+                this.magic = this.hitDiceMp * 10;
+                this.maxHealth = this.health;
                 break;
             case 4:
                 // Set the values for clown.
@@ -91,6 +103,9 @@ public class Character {
                 this.vision = 0.7;
                 this.offence = 1;
                 this.defence = 1;
+                this.health = this.hitDiceHp * 10;
+                this.magic = this.hitDiceMp * 10;
+                this.maxHealth = this.health;
                 break;
         }
     }
@@ -133,5 +148,33 @@ public class Character {
         // Obtain all the stats and return as a string to the user.
         String stats = "Character Stats: \nFirst Name: " + firstName + "\nLast Name: " + lastName + "\nGender: " + genderString + "\nAge: " + age + "\nSpecies: " + species + "\nJob: " + jobString + "\nExp: " + exp + "\nLevel: " + level + "\nHP: " + health + "\nMP: " + magic + "\nOffence: " + offence + "\nDefence: " + defence + "\nStrength: " + strength + "\nResistance: " + resistance + "\nMind: " + mind + "\nSpirit: " + spirit + "\nIntellect: " + intellect + "\nVision: " + vision + "%";
         return stats;
+    }
+
+    // Set the first time stat to false when the character goes through the into.
+    public void setCharacterFirstTimeStat() {
+        // Update it to false for story.
+        firstTime = false;
+    }
+
+    // Get the character's name.
+    public String getCharacterName() {
+        // Return the character's name.
+        return firstName;
+    }
+
+    // Get the character's gender as a string.
+    public String getCharacterStringGender() {
+        // Return boy or girl dependant on the gender.
+        if (gender == 1) {
+            return "boy";
+        } else {
+            return "girl";
+        }
+    }
+
+    // Get character's firsttimer stat.
+    public boolean getCharacterFirstTimeStat() {
+        // Return the stat.
+        return firstTime;
     }
 }
