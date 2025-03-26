@@ -27,7 +27,9 @@
 - [W3Schools - Java While Loops](https://www.w3schools.com/java/java_while_loop.asp)
 - [W3Schools - Java Do-While Loops](https://www.w3schools.com/java/java_while_loop_do.asp)
 - [W3Schools - Java For-Each Loops](https://www.w3schools.com/java/java_foreach_loop.asp)
+- [W3Schools - Java Arrays](https://www.w3schools.com/java/java_arrays.asp)
 - [W3Schools - Java ArrayList](https://www.w3schools.com/java/java_arraylist.asp)
+- [W3Schools - Java HashMaps](https://www.w3schools.com/java/java_hashmap.asp)
 - [W3Schools - Java Classes and Objects](https://www.w3schools.com/java/java_classes.asp)
 
 # Future Work
