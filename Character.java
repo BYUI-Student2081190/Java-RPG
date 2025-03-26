@@ -3,6 +3,8 @@
  * to create custom characters with stats and jobs that a
  * player can use in the game.
  */
+// Imports
+// import java.util.Random;
 
 public class Character {
     // Attributes of the Character.
@@ -30,6 +32,7 @@ public class Character {
     private int hitDiceMp; // This is a number that is determined by job to help with level up stats. 4 = warrior, 10 = mage, 10 = healer, clown = 6.
     private boolean firstTime = true; // This is a stat that tests to see if a character has been used before. If so it skips part of the story.
     private int maxHealth; // This is here to make sure a character does not heal over it's max health.
+    private int maxMagic; // This is here to make sure a character does not heal over it's max magic.
     // Add lists for armor equipment, weapons, abilities, and items.
 
     // Constructor - Used to set the name, gender, age, and job.
@@ -172,9 +175,76 @@ public class Character {
         }
     }
 
+    // Get the proper pronoun for character.
+    public String getCharacterPronoun() {
+        // Return he or she dependant on the gender.
+        if (gender == 1) {
+            return "he";
+        } else {
+            return "she";
+        }
+    }
+
     // Get character's firsttimer stat.
     public boolean getCharacterFirstTimeStat() {
         // Return the stat.
         return firstTime;
+    }
+
+    // Get the character's current health.
+    public int getHealth() {
+        return health;
+    }
+
+    // Get the character's current magic.
+    public int getMagic() {
+        return magic;
+    }
+
+    // Function to test to see if the character is dead.
+    public boolean isDead() {
+        // Return true if the character has been defeated.
+        if (health <= 0) {
+            return true;
+        } else {
+            return false; // We are still in this.
+        }
+    }
+
+    // Function to calculate a physical attack by the player.
+    public int attackDamage() {
+        // Calculate the damage from an attack.
+        double damageMultiplier = Math.pow(strength, vision); // Get the damage multiplier from strength.
+        int damage = offence + (int) Math.round(damageMultiplier); // Add offence to the multiplier.
+
+        // Return total damage.
+        return damage;
+    }
+
+    // Physical Damage taken by player.
+    public int damageTaken(int incomingDamage) {
+        // Total damage variable.
+        int totalDamage;
+        
+        // Get the defence multiplier.
+        double defMulti = Math.pow(resistance, vision);
+
+        // Use the stats to see how much damage is taken.
+        totalDamage = incomingDamage - (defence + (int) Math.round(defMulti));
+
+        // Now subract that damage from the player health.
+        health -= totalDamage;
+
+        // Now return the totalDamage to the user.
+        return totalDamage;
+    }
+
+    // This function is a full heal function to fully heal the character.
+    public void fullHeal() {
+        // Set the values.
+        health = maxHealth;
+        magic = maxMagic;
+        // Now return.
+        return;
     }
 }

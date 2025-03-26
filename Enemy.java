@@ -49,4 +49,33 @@ public class Enemy {
         // Return all the stats for testing.
         return "Enemy Stats: \nEnemy Name: " + enemyName + "\nEnemy Id: " + enemyId + "\nHP: " + enemyHealth + "\nAttack: " + enemyAttack + "\nMind: " + enemyMind + "\nArmor: " + enemyArmor + "\nMagic Def: " + enemyMagicDef + "\nEXP Drop: " + enemyExpDrop + "\nItem Drop Rate: " + dropRate;
     }
+
+    // Function to check if the enemy is dead.
+    public boolean isDead() {
+        // If the enemy is dead return true, if else false.
+        if (enemyHealth <= 0) {
+            return true;
+        } else {
+            return false; // This is because he is still kicking.
+        }
+    }
+
+    // Function to see how much damage an enemy took from an attack, and to subtract that from health.
+    public int damageTaken(int incomingDamage) {
+        // Calculate how much damage was actually taken.
+        int takenDamage;
+
+        takenDamage = incomingDamage - enemyArmor;
+
+        // Now subtract the damage from health.
+        enemyHealth -= takenDamage;
+
+        // Now return the takenDamage for the user to see.
+        return takenDamage;
+    }
+
+    // Function to send the enemy's attack damage.
+    public int attackDamage() {
+        return enemyAttack;
+    }
 }

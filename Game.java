@@ -61,10 +61,21 @@ public class Game {
         private static void initMonsters() {
             // Start adding the data to the HashMap.
             // Enemy rules: enemyName, enemyId, enemyHealth, enemyAttack, enemyMind, enemyArmor, enemyMagicDef, enemyExpDrop, dropRate
-            monsterHashMap.put(001, "Goblin!--!--!001!--!--!90!--!--!5!--!--!0!--!--!0!--!--!0!--!--!25!--!--!80");
+            monsterHashMap.put(001, "Goblin!--!--!001!--!--!90!--!--!20!--!--!0!--!--!0!--!--!0!--!--!25!--!--!80");
 
             // Return to the main function.
             return;
+        }
+
+        // This function displays the battle UI with the enemy name and hp.
+        private static void displayMonsterData(Enemy currEnemy) {
+            // Display it to the user. This makes it easier to read down below.
+            System.out.println("Enemy Name: " + currEnemy.getEnemyName() + "     HP: " + currEnemy.getEnemyHealth());
+            System.out.println("-------------------------------------------------------------------------------------");
+            System.out.println();
+            System.out.println("Name: " + character.getCharacterName() + " HP: " + character.getHealth() + "MP: " + character.getMagic());
+            System.out.println("-------------------------------------------------------------------------------------");
+            System.out.println();
         }
 
         // This function handles rpg combat with the enemy.
@@ -136,12 +147,83 @@ public class Game {
             // Now create the enemy object.
             Enemy currEnemy = new Enemy(enemyName, enemyId, enemyHealth, enemyAttack, enemyMind, enemyArmor, enemyMagicDef, enemyExpDrop, dropRate);
 
-            // Now test display the enemy to the console.
-            System.out.println("Enemy Name: " + currEnemy.getEnemyName() + "     HP: " + currEnemy.getEnemyHealth());
-            System.out.println("-------------------------------------------------------------------------------------");
-            System.out.println();
-            printLetterByLetter("What would you like to do?");
-            scanner.nextLine(); // Have it like this right now for testing.
+            // Now display the enemy and start the battle in a loop.
+            while (currEnemy.isDead() != true && character.isDead() != true) { // Make sure both the player and the enemy are not dead.
+                // Create a variable to hold the user response.
+                String userResponse;
+                // Create a variable to let the enemy know it can do it's turn.
+                boolean enemyTurnActive = false; // If this is true it can.
+                
+                clearConsole(); // Put this here just in case.
+                displayMonsterData(currEnemy);
+                printLetterByLetter("What would you like to do?"); // Start of player turn.
+                printLetterByLetter("1.) Attack");
+                printLetterByLetter("Please select the number of the option you would like: ");
+                userResponse = scanner.nextLine();
+
+                // Check the response to make sure it is ok.
+                if (isInt(userResponse)) {
+                    // We can now use it and see if it is a valid option.
+                    int choice = Integer.parseInt(userResponse);
+
+                    switch (choice) {
+                        case 1:
+                            // Go through with this action, which is attack.
+                            // Call the attack function from the character and get the damage.
+                            int characterDamage;
+                            characterDamage = character.attackDamage();
+
+                            // Call the calcDamage function from the enemy.
+                            int enemyDamageTaken;
+                            enemyDamageTaken = currEnemy.damageTaken(characterDamage); // This is what gets displayed.
+
+                            // Display result of attack to user.
+                            clearConsole();
+                            displayMonsterData(currEnemy);
+                            printLetterByLetter("You attack, and the " + currEnemy.getEnemyName() + " took " + enemyDamageTaken + " HP in damage.");
+                            printLetterByLetter("Press Enter to Continue...");
+                            scanner.nextLine();
+
+                            // Set the enemy turn to active so the game can do it's turn.
+                            enemyTurnActive = true; // Now the enemy can respond.
+
+                            // Break case.
+                            break;
+                        default:
+                            // Let the user know their input did nothing and needs to be inputed again.
+                            // Set the enemy turn to not active so the game can loop back to the start.
+                            enemyTurnActive = false;
+                    }
+                } else {
+                    // Tell the user their error.
+                    clearConsole();
+                    printLetterByLetter("Your input was not a number. Please input the number matching the action you want.");
+                    printLetterByLetter("Press Enter to Continue...");
+                    scanner.nextLine();
+                    clearConsole();
+                }
+
+                // Now the enemy's turn.
+                if (currEnemy.isDead() != true && enemyTurnActive) {
+                    // Now run the enemy's attack.
+                    int enemyAttackDamage;
+                    enemyAttackDamage = currEnemy.attackDamage();
+
+                    // Calculate damage done to the player.
+                    int characterDamageTaken;
+                    characterDamageTaken = character.damageTaken(enemyAttackDamage);
+
+                    // Display it to the player.
+                    clearConsole();
+                    displayMonsterData(currEnemy);
+                    printLetterByLetter("The " + currEnemy.getEnemyName() + " attacks " + character.getCharacterName() + " and " + character.getCharacterPronoun() + " took " + characterDamageTaken + " HP in damage.");
+                    printLetterByLetter("Press Enter to Continue...");
+                    scanner.nextLine();
+                }
+            }
+
+            // Now return to the previous function.
+            return;
         }
 
         // This function is used to run the quest that the player with run on.
@@ -285,18 +367,49 @@ public class Game {
 
             // Now create a for loop that calls the battle function to create battles based on the encounters.
             for (int i = 1; i <= encounters; i ++) {
-                // Let the player get their barrings and start them with this message.
-                printLetterByLetter("As you go about your quest a monster appears! Battle: " + i);
-                System.out.println();
-                printLetterByLetter("Press Enter to begin the match!");
-                scanner.nextLine();
-                clearConsole();
+                // Make sure the character is still alive each loop.
+                if (character.isDead() != true) {
+                    // Let the player get their barrings and start them with this message.
+                    printLetterByLetter("As you go about your quest a monster appears! Battle: " + i);
+                    
+                    printLetterByLetter("Press Enter to begin the match!");
+                    scanner.nextLine();
+                    clearConsole();
 
-                // Call the function.
-                battleManager();
+                    // Call the function.
+                    battleManager();
+                } else {
+                    // Break the loop because the player has been defeated.
+                    break;
+                }
             }
 
-            // For now in the testing phase just return after this.
+            // Create story for a sucessful run, and a not successful run, also heal the character at the end of both.
+            clearConsole();
+
+            if (character.isDead()) {
+                // Create story to react to the dead character.
+                printLetterByLetter("Sue the Guild Receptionist:");
+                printLetterByLetter("Huh who's that? WHAT!? You say you found " + character.getCharacterPronoun() + " out there knocked out. Thank you for bringing " + character.getCharacterPronoun() + " to us.");
+                printLetterByLetter("We will treat " + character.getCharacterPronoun() + " right away.");
+                System.out.println();
+                printLetterByLetter("How are you feeling hun? You look like you are doing better. Don't scare me like that! Come back after getting some rest...");
+                System.out.println();
+                printLetterByLetter("Press Enter to Continue...");
+                scanner.nextLine();
+                clearConsole();
+            } else {
+                // Create story to react to the winning character.
+                printLetterByLetter("Sue the Guild Receptionist:");
+                printLetterByLetter("Welcome back hun, looks like you survived. That's a first.");
+                printLetterByLetter("Come back when you want to challege the 'Wizard's' forces again you hear?");
+                System.out.println();
+                printLetterByLetter("Press Enter to Continue...");
+                scanner.nextLine();
+                clearConsole();
+            }
+
+            // Now return to the past function.
             return;
         }
     
