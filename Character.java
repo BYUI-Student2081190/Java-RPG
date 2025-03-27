@@ -153,7 +153,7 @@ public class Character {
         }
 
         // Obtain all the stats and return as a string to the user.
-        String stats = "Character Stats: \nFirst Name: " + firstName + "\nLast Name: " + lastName + "\nGender: " + genderString + "\nAge: " + age + "\nSpecies: " + species + "\nJob: " + jobString + "\nExp: " + exp + "\nLevel: " + level + "\nHP: " + health + "\nMP: " + magic + "\nOffence: " + offence + "\nDefence: " + defence + "\nStrength: " + strength + "\nResistance: " + resistance + "\nMind: " + mind + "\nSpirit: " + spirit + "\nIntellect: " + intellect + "\nVision: " + vision + "%";
+        String stats = "Character Stats: \nFirst Name: " + firstName + "\nLast Name: " + lastName + "\nGender: " + genderString + "\nAge: " + age + "\nSpecies: " + species + "\nJob: " + jobString + "\nExp: " + exp + "\nNext Level: " + nextLevel + "\nLevel: " + level + "\nHP: " + health + "\nMP: " + magic + "\nOffence: " + offence + "\nDefence: " + defence + "\nStrength: " + strength + "\nResistance: " + resistance + "\nMind: " + mind + "\nSpirit: " + spirit + "\nIntellect: " + intellect + "\nVision: " + vision + "%";
         return stats;
     }
 
@@ -253,7 +253,7 @@ public class Character {
             // Now subract that damage from the player health.
             health -= totalDamage;
         }
-        
+
         // Now return the totalDamage to the user.
         return totalDamage;
     }
@@ -364,10 +364,12 @@ public class Character {
             double growthMulti = Math.pow(level, growthFactor);
 
             // Now do the math.
-            nextLevel = exp * (int) Math.round(growthMulti);
+            nextLevel += exp * (int) Math.round(growthMulti);
 
             // Now set the stats.
             setLeveledStats();
+            // Full heal after the battle.
+            fullHeal();
         }
 
         // If we don't level up just return for now.
