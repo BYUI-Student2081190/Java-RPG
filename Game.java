@@ -373,7 +373,7 @@ public class Game {
                     System.out.println();
                     printLetterByLetter("1.) Small Quest (About: 5 Monsters)");
                     printLetterByLetter("2.) Medium Quest (About: 10 Monsters)");
-                    printLetterByLetter("3.) Large Queset (About: 15 Monsters)");
+                    printLetterByLetter("3.) Large Quest (About: 15 Monsters)");
                     System.out.println();
                     printLetterByLetter("Hun, if you just do this, then we can both get a break from eachother...");
                 }
@@ -712,171 +712,181 @@ public class Game {
             // Now save the line we read to the line variable.
             line = reader.readLine();
 
-            // Now split the line at the point it needs to and make it into a list.
-            String[] characterArray = line.split("###---!!!---###");
+            if (line != null) { // This is a safety check just in case data was lost earlier.
+                // Now split the line at the point it needs to and make it into a list.
+                String[] characterArray = line.split("###---!!!---###");
 
-            // Convert to ArrayList.
-            ArrayList<String> characterArrayList = new ArrayList<>(Arrays.asList(characterArray));
+                // Convert to ArrayList.
+                ArrayList<String> characterArrayList = new ArrayList<>(Arrays.asList(characterArray));
 
-            // Create a new character object with generic values.
-            // This is so we have a blank object to then load all this new data into the character.
-            // If this fails we will have Andrew Sanders as our character.
-            character = new Character("Andrew", "Sanders", 1, 28, "Human", 1);
+                // Create a new character object with generic values.
+                // This is so we have a blank object to then load all this new data into the character.
+                // If this fails we will have Andrew Sanders as our character.
+                character = new Character("Andrew", "Sanders", 1, 28, "Human", 1);
 
-            // Add all the attributes.
-            String firstName = "";
-            String lastName = "";
-            int gender = 1;
-            int age = 1; 
-            String species = ""; 
-            int job = 1;
-            int exp = 0; 
-            int nextLevel = 0; 
-            int level = 1; 
-            int health = 12; 
-            int magic = 0;
-            int offence = 0; 
-            int defence = 0; 
-            int strength = 0; 
-            int resistance = 0; 
-            int mind = 0; 
-            int spirit = 0; 
-            int intellect = 0; 
-            double vision = 0.1; 
-            boolean firstTime = false; 
-            int maxHealth = 0; 
-            int maxMagic = 0;
-            // Create a loop count to make sure we are setting these right.
-            int loopCount = 1;
-            // Create a variable to hold int, boolean, and double stats.
-            int numStat;
-            double doubStat;
-            boolean boolStat; 
+                // Add all the attributes.
+                String firstName = "";
+                String lastName = "";
+                int gender = 1;
+                int age = 1; 
+                String species = ""; 
+                int job = 1;
+                int exp = 0; 
+                int nextLevel = 0; 
+                int level = 1; 
+                int health = 12; 
+                int magic = 0;
+                int offence = 0; 
+                int defence = 0; 
+                int strength = 0; 
+                int resistance = 0; 
+                int mind = 0; 
+                int spirit = 0; 
+                int intellect = 0; 
+                double vision = 0.1; 
+                boolean firstTime = false; 
+                int maxHealth = 0; 
+                int maxMagic = 0;
+                // Create a loop count to make sure we are setting these right.
+                int loopCount = 1;
+                // Create a variable to hold int, boolean, and double stats.
+                int numStat;
+                double doubStat;
+                boolean boolStat; 
 
-            // Now test print with for loop.
-            for (String stat : characterArrayList) {
-                // Create a switch case to set the values and to convert the proper ones.
-                switch (loopCount) {
-                    case 1:
-                        // First name.
-                        firstName = stat;
-                        break;
-                    case 2:
-                        // Last name.
-                        lastName = stat;
-                        break;
-                    case 3:
-                        // Gender - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        gender = numStat;
-                        break;
-                    case 4:
-                        // Age - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        age = numStat;
-                        break;
-                    case 5:
-                        // Species.
-                        species = stat;
-                        break;
-                    case 6:
-                        // Job - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        job = numStat;
-                        break;
-                    case 7:
-                        // Exp - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        exp = numStat;
-                        break;
-                    case 8:
-                        // NextLevel - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        nextLevel = numStat;
-                        break;
-                    case 9:
-                        // Level - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        level = numStat;
-                        break;
-                    case 10:
-                        // Health - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        health = numStat;
-                        break;
-                    case 11:
-                        // Magic - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        magic = numStat;
-                        break;
-                    case 12:
-                        // Offence - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        offence = numStat;
-                        break;
-                    case 13:
-                        // Defence - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        defence  = numStat;
-                        break;
-                    case 14:
-                        // Strength - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        strength = numStat;
-                        break;
-                    case 15:
-                        // Resistance - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        resistance = numStat;
-                        break;
-                    case 16:
-                        // Mind - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        mind = numStat;
-                        break;
-                    case 17:
-                        // Spirit - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        spirit = numStat;
-                        break;
-                    case 18:
-                        // Intellect - this is an int.
-                        numStat = Integer.parseInt(stat);
-                        intellect = numStat;
-                        break;
-                    case 19:
-                        // Vision - this is a double.
-                        doubStat = Double.parseDouble(stat);
-                        vision = doubStat;
-                        break;
-                    case 20:
-                        // FirstTime- this is a boolean.
-                        boolStat = Boolean.parseBoolean(stat);
-                        firstTime = boolStat;
-                        break;
-                    case 21:
-                        // MaxHealth - this is a int.
-                        numStat = Integer.parseInt(stat);
-                        maxHealth = numStat;
-                        break;
-                    case 22:
-                        // MaxMagic - this is a int.
-                        numStat = Integer.parseInt(stat);
-                        maxMagic = numStat;
-                        break;
+                // Now test print with for loop.
+                for (String stat : characterArrayList) {
+                    // Create a switch case to set the values and to convert the proper ones.
+                    switch (loopCount) {
+                        case 1:
+                            // First name.
+                            firstName = stat;
+                            break;
+                        case 2:
+                            // Last name.
+                            lastName = stat;
+                            break;
+                        case 3:
+                            // Gender - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            gender = numStat;
+                            break;
+                        case 4:
+                            // Age - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            age = numStat;
+                            break;
+                        case 5:
+                            // Species.
+                            species = stat;
+                            break;
+                        case 6:
+                            // Job - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            job = numStat;
+                            break;
+                        case 7:
+                            // Exp - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            exp = numStat;
+                            break;
+                        case 8:
+                            // NextLevel - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            nextLevel = numStat;
+                            break;
+                        case 9:
+                            // Level - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            level = numStat;
+                            break;
+                        case 10:
+                            // Health - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            health = numStat;
+                            break;
+                        case 11:
+                            // Magic - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            magic = numStat;
+                            break;
+                        case 12:
+                            // Offence - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            offence = numStat;
+                            break;
+                        case 13:
+                            // Defence - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            defence  = numStat;
+                            break;
+                        case 14:
+                            // Strength - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            strength = numStat;
+                            break;
+                        case 15:
+                            // Resistance - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            resistance = numStat;
+                            break;
+                        case 16:
+                            // Mind - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            mind = numStat;
+                            break;
+                        case 17:
+                            // Spirit - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            spirit = numStat;
+                            break;
+                        case 18:
+                            // Intellect - this is an int.
+                            numStat = Integer.parseInt(stat);
+                            intellect = numStat;
+                            break;
+                        case 19:
+                            // Vision - this is a double.
+                            doubStat = Double.parseDouble(stat);
+                            vision = doubStat;
+                            break;
+                        case 20:
+                            // FirstTime- this is a boolean.
+                            boolStat = Boolean.parseBoolean(stat);
+                            firstTime = boolStat;
+                            break;
+                        case 21:
+                            // MaxHealth - this is a int.
+                            numStat = Integer.parseInt(stat);
+                            maxHealth = numStat;
+                            break;
+                        case 22:
+                            // MaxMagic - this is a int.
+                            numStat = Integer.parseInt(stat);
+                            maxMagic = numStat;
+                            break;
+                    }
+                    // At the end add 1 to loopCount.
+                    loopCount++;
                 }
-                // At the end add 1 to loopCount.
-                loopCount++;
+
+                // Now call the function to load in our read character.
+                character.loadCharacter(firstName, lastName, gender, age, species, job, exp, nextLevel, level, health, magic, offence, defence, strength, resistance, mind, spirit, intellect, vision, firstTime, maxHealth, maxMagic);
+
+                // Let the user know their character was loaded.
+                printLetterByLetter("Your character named " + firstName + " was successfully loaded!");
+                printLetterByLetter("Press Enter to Continue...");
+                scanner.nextLine();
+                clearConsole();
+            } else {
+                // This is what we do if the data was lost.
+                printLetterByLetter("Sorry there was a problem with your past saved character.");
+                printLetterByLetter("Looks like they have been deleted from the save file.");
+                printLetterByLetter("Please go ahead and make a new character and save them to the file.");
+                printLetterByLetter("Please Press Enter to Continue...");
+                scanner.nextLine();
+                clearConsole();
             }
-
-            // Now call the function to load in our read character.
-            character.loadCharacter(firstName, lastName, gender, age, species, job, exp, nextLevel, level, health, magic, offence, defence, strength, resistance, mind, spirit, intellect, vision, firstTime, maxHealth, maxMagic);
-
-            // Let the user know their character was loaded.
-            printLetterByLetter("Your character named " + firstName + " was successfully loaded!");
-            printLetterByLetter("Press Enter to Continue...");
-            scanner.nextLine();
-            clearConsole();
 
             //After we are done close the file.
             reader.close();
