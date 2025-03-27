@@ -31,6 +31,8 @@
 - [W3Schools - Java ArrayList](https://www.w3schools.com/java/java_arraylist.asp)
 - [W3Schools - Java HashMaps](https://www.w3schools.com/java/java_hashmap.asp)
 - [W3Schools - Java Classes and Objects](https://www.w3schools.com/java/java_classes.asp)
+- [W3Schools - Java Read Files](https://www.w3schools.com/java/java_files_read.asp)
+- [YouTube - Coding With John: Java File Input/Output - It's Way Easier Than You Think](https://www.youtube.com/watch?v=ScUJx4aWRi0)
 
 # Future Work
 
