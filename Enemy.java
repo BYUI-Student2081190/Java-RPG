@@ -50,6 +50,11 @@ public class Enemy {
         return "Enemy Stats: \nEnemy Name: " + enemyName + "\nEnemy Id: " + enemyId + "\nHP: " + enemyHealth + "\nAttack: " + enemyAttack + "\nMind: " + enemyMind + "\nArmor: " + enemyArmor + "\nMagic Def: " + enemyMagicDef + "\nEXP Drop: " + enemyExpDrop + "\nItem Drop Rate: " + dropRate;
     }
 
+    // Function to get the enemy's max health.
+    public int getEnemyMaxHealth(){
+        return maxHealth;
+    }
+
     // Function to check if the enemy is dead.
     public boolean isDead() {
         // If the enemy is dead return true, if else false.
