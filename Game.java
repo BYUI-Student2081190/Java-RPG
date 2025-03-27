@@ -883,7 +883,7 @@ public class Game {
         } catch (IOException e) {
             // Send a message to the user involving the error.
             clearConsole();
-            printLetterByLetter("There was a problem saving your character. Could not access save file.");
+            printLetterByLetter("There was a problem loading your character. Could not access save file.");
             printLetterByLetter("Press Enter to Continue...");
             scanner.nextLine();
             clearConsole();
