@@ -8,6 +8,7 @@ import java.util.Scanner; // Import the scanner class to read inputs from user.
 import java.util.Arrays; // This is used for conversions of data.
 import java.util.ArrayList; // Import the ArrayList class to create ArrayLists in program.
 import java.util.HashMap; // Import the HashMap class to create HashMaps, and also to create a storage for enemies and maybe items.
+import java.util.Random; // This allows things to happen by chance.
 
 public class Game {
     // Global Variables.
@@ -62,6 +63,8 @@ public class Game {
             // Start adding the data to the HashMap.
             // Enemy rules: enemyName, enemyId, enemyHealth, enemyAttack, enemyMind, enemyArmor, enemyMagicDef, enemyExpDrop, dropRate
             monsterHashMap.put(001, "Goblin!--!--!001!--!--!20!--!--!10!--!--!0!--!--!0!--!--!0!--!--!25!--!--!80");
+            monsterHashMap.put(002, "Slime!--!--!002!--!--!25!--!--!15!--!--!0!--!--!0!--!--!0!--!--!5!--!--!10");
+            monsterHashMap.put(003, "Flying Pup!--!--!003!--!--!30!--!--!18!--!--!0!--!--!0!--!--!0!--!--!30!--!--!40");
 
             // Return to the main function.
             return;
@@ -100,8 +103,14 @@ public class Game {
             int characterLevel;
             characterLevel = character.getLevel();
 
-            // Create the enemy you will fight edit this to be based on level for now just make the goblin.
-            String monsterData = monsterHashMap.get(001);
+            // Create a random variable to use to get the monster to fight.
+            Random random = new Random();
+
+            // Get the number 1-3 to see which monster the player will fight.
+            int key = random.nextInt(3) + 1;
+
+            // Create the enemy you will fight edit this to be based on level for now just make the three monsters.
+            String monsterData = monsterHashMap.get(key);
 
             // Now split the data to make the monster.
             String[] monsterDataArray = monsterData.split("!--!--!");
