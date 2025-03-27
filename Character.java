@@ -243,9 +243,17 @@ public class Character {
         // Use the stats to see how much damage is taken.
         totalDamage = incomingDamage - (defence + (int) Math.round(defMulti));
 
-        // Now subract that damage from the player health.
-        health -= totalDamage;
-
+        // Create a check to make sure the incoming damage is not negative if it is set it to 1.
+        if (totalDamage < 1) {
+            // Set totalDamage to 1.
+            totalDamage = 1;
+            // Only subract 1 from the total health.
+            health -= totalDamage;
+        } else {
+            // Now subract that damage from the player health.
+            health -= totalDamage;
+        }
+        
         // Now return the totalDamage to the user.
         return totalDamage;
     }
