@@ -381,4 +381,59 @@ public class Character {
         // Return the string "###---!!!---###" was added as a splitter to easly gain the data again.
         return firstName + "###---!!!---###" + lastName + "###---!!!---###" + gender + "###---!!!---###" + age + "###---!!!---###" + species + "###---!!!---###" + job + "###---!!!---###" + exp + "###---!!!---###" + nextLevel + "###---!!!---###" + level + "###---!!!---###" + health + "###---!!!---###" + magic + "###---!!!---###" + offence + "###---!!!---###" + defence + "###---!!!---###" + strength + "###---!!!---###" + resistance + "###---!!!---###" + mind + "###---!!!---###" + spirit + "###---!!!---###" + intellect + "###---!!!---###" + vision + "###---!!!---###" + firstTime + "###---!!!---###" + maxHealth + "###---!!!---###" + maxMagic;
     }
+
+    // Load in the data from a loaded character.
+    // The reason we do this is because we do not what to deal with
+    // the constructor and this will make sure we don't need to break
+    // something that already works.
+    public void loadCharacter(String fname, String lname, int cGender, int cAge, String cSpecies, int cJob, int cexp, int cnextLevel, int clevel, int chealth, int cmagic, int cOffence, int cDefence, int cStrength, int cResistance, int cMind, int cSpirit, int cIntellect, double cVision, boolean cfirstTime, int cMaxHealth, int cMaxMagic) {
+        // Lots of stuff getting passed in because how this will work is we will create a dummy character and then set all their
+        // attributes to these afterwards.
+        firstName = fname;
+        lastName = lname;
+        gender = cGender;
+        age = cAge;
+        species = cSpecies;
+        job = cJob;
+        exp = cexp;
+        nextLevel = cnextLevel;
+        level = clevel;
+        health = chealth;
+        magic = cmagic;
+        offence = cOffence;
+        defence = cDefence;
+        strength = cStrength;
+        resistance = cResistance;
+        mind = cMind;
+        spirit = cSpirit;
+        intellect = cIntellect;
+        vision = cVision;
+        firstTime = cfirstTime;
+        maxHealth = cMaxHealth;
+        maxMagic = cMaxMagic;
+
+        // Now set the hitDice to the right job.
+        switch (job) {
+            case 1:
+                // Warrior.
+                this.hitDiceHp = 10;
+                this.hitDiceMp = 4;
+                break;
+            case 2:
+                // Mage.
+                this.hitDiceHp = 6;
+                this.hitDiceMp = 10;
+                break;
+            case 3:
+                // Healer.
+                this.hitDiceHp = 5;
+                this.hitDiceMp = 10;
+                break;
+            case 4:
+                // Clown.
+                this.hitDiceHp = 8;
+                this.hitDiceMp = 6;
+                break;
+        }
+    }
 }

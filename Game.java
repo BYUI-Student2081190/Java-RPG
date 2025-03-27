@@ -709,9 +709,172 @@ public class Game {
             // Create a string to hold the line we read.
             String line;
             
-            // Try printing out what we see on the file with a while loop.
-            clearConsole();
-            printLetterByLetter(reader.readLine());
+            // Now save the line we read to the line variable.
+            line = reader.readLine();
+
+            // Now split the line at the point it needs to and make it into a list.
+            String[] characterArray = line.split("###---!!!---###");
+
+            // Convert to ArrayList.
+            ArrayList<String> characterArrayList = new ArrayList<>(Arrays.asList(characterArray));
+
+            // Create a new character object with generic values.
+            // This is so we have a blank object to then load all this new data into the character.
+            // If this fails we will have Andrew Sanders as our character.
+            character = new Character("Andrew", "Sanders", 1, 28, "Human", 1);
+
+            // Add all the attributes.
+            String firstName = "";
+            String lastName = "";
+            int gender = 1;
+            int age = 1; 
+            String species = ""; 
+            int job = 1;
+            int exp = 0; 
+            int nextLevel = 0; 
+            int level = 1; 
+            int health = 12; 
+            int magic = 0;
+            int offence = 0; 
+            int defence = 0; 
+            int strength = 0; 
+            int resistance = 0; 
+            int mind = 0; 
+            int spirit = 0; 
+            int intellect = 0; 
+            double vision = 0.1; 
+            boolean firstTime = false; 
+            int maxHealth = 0; 
+            int maxMagic = 0;
+            // Create a loop count to make sure we are setting these right.
+            int loopCount = 1;
+            // Create a variable to hold int, boolean, and double stats.
+            int numStat;
+            double doubStat;
+            boolean boolStat; 
+
+            // Now test print with for loop.
+            for (String stat : characterArrayList) {
+                // Create a switch case to set the values and to convert the proper ones.
+                switch (loopCount) {
+                    case 1:
+                        // First name.
+                        firstName = stat;
+                        break;
+                    case 2:
+                        // Last name.
+                        lastName = stat;
+                        break;
+                    case 3:
+                        // Gender - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        gender = numStat;
+                        break;
+                    case 4:
+                        // Age - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        age = numStat;
+                        break;
+                    case 5:
+                        // Species.
+                        species = stat;
+                        break;
+                    case 6:
+                        // Job - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        job = numStat;
+                        break;
+                    case 7:
+                        // Exp - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        exp = numStat;
+                        break;
+                    case 8:
+                        // NextLevel - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        nextLevel = numStat;
+                        break;
+                    case 9:
+                        // Level - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        level = numStat;
+                        break;
+                    case 10:
+                        // Health - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        health = numStat;
+                        break;
+                    case 11:
+                        // Magic - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        magic = numStat;
+                        break;
+                    case 12:
+                        // Offence - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        offence = numStat;
+                        break;
+                    case 13:
+                        // Defence - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        defence  = numStat;
+                        break;
+                    case 14:
+                        // Strength - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        strength = numStat;
+                        break;
+                    case 15:
+                        // Resistance - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        resistance = numStat;
+                        break;
+                    case 16:
+                        // Mind - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        mind = numStat;
+                        break;
+                    case 17:
+                        // Spirit - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        spirit = numStat;
+                        break;
+                    case 18:
+                        // Intellect - this is an int.
+                        numStat = Integer.parseInt(stat);
+                        intellect = numStat;
+                        break;
+                    case 19:
+                        // Vision - this is a double.
+                        doubStat = Double.parseDouble(stat);
+                        vision = doubStat;
+                        break;
+                    case 20:
+                        // FirstTime- this is a boolean.
+                        boolStat = Boolean.parseBoolean(stat);
+                        firstTime = boolStat;
+                        break;
+                    case 21:
+                        // MaxHealth - this is a int.
+                        numStat = Integer.parseInt(stat);
+                        maxHealth = numStat;
+                        break;
+                    case 22:
+                        // MaxMagic - this is a int.
+                        numStat = Integer.parseInt(stat);
+                        maxMagic = numStat;
+                        break;
+                }
+                // At the end add 1 to loopCount.
+                loopCount++;
+            }
+
+            // Now call the function to load in our read character.
+            character.loadCharacter(firstName, lastName, gender, age, species, job, exp, nextLevel, level, health, magic, offence, defence, strength, resistance, mind, spirit, intellect, vision, firstTime, maxHealth, maxMagic);
+
+            // Let the user know their character was loaded.
+            printLetterByLetter("Your character named " + firstName + " was successfully loaded!");
+            printLetterByLetter("Press Enter to Continue...");
             scanner.nextLine();
             clearConsole();
 
@@ -739,7 +902,7 @@ public class Game {
             printLetterByLetter("What would you like to do today?");
             printLetterByLetter("1.) Create New Character.");
             printLetterByLetter("2.) Save Created Character. (NOTE: This action deletes the previously saved character.)");
-            printLetterByLetter("3.) Load In Previous Character.");
+            printLetterByLetter("3.) Load In Previous Character. (NOTE: This action deletes the current character.)");
             printLetterByLetter("4.) View Current Character.");
             printLetterByLetter("5.) Go Back to Main Menu.");
             printLetterByLetter("Please type the number of the option you would like to do: ");
@@ -845,7 +1008,7 @@ public class Game {
 
         while (endMenuLoop != true) {
             // Display messages to the user.
-            printLetterByLetter("Welcome to the land of Javopia.\nA world full of wonder and adventure.");
+            printLetterByLetter("Welcome to the land of KingsBurrow.\nA world full of wonder and adventure.");
             printLetterByLetter("Tell me adventurer? What would you like to do first?");
             // Create the character.
             printLetterByLetter("1.) Create Character");
