@@ -96,6 +96,10 @@ public class Game {
 
         // This function handles rpg combat with the enemy.
         private static void battleManager() {
+            // Create a variable to hold the character's current level. This is going to be used to check and see if they level up this battle.
+            int characterLevel;
+            characterLevel = character.getLevel();
+
             // Create the enemy you will fight edit this to be based on level for now just make the goblin.
             String monsterData = monsterHashMap.get(001);
 
@@ -250,10 +254,23 @@ public class Game {
                 displayMonsterData(currEnemy);
                 printLetterByLetter(currEnemy.getEnemyName() + " has been defeated! " + character.getCharacterName() + " has won the battle!");
                 printLetterByLetter(character.getCharacterName() + " has gained " + currEnemy.obtainExp() + " EXP!");
-                // Add the exp to the character and test for levels.
-                // Add condition if the character levels up.
                 printLetterByLetter("Press Enter to Continue...");
                 scanner.nextLine();
+                // Add the exp to the character and test for levels.
+                int experiance; 
+                experiance = currEnemy.obtainExp();
+
+                character.experianceAndLevels(experiance);
+                // Add condition if the character levels up.
+                if (character.getLevel() > characterLevel) {
+                    // Display the stats for the character!
+                    clearConsole();
+                    printLetterByLetter(character.getCharacterName() + " leveled up!");
+                    printLetterByLetter(character.getStats());
+                    System.out.println();
+                    printLetterByLetter("Press Enter to Continue...");
+                    scanner.nextLine();
+                }
             }
 
             // Now return to the previous function.

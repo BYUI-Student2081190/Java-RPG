@@ -4,7 +4,7 @@
  * player can use in the game.
  */
 // Imports
-// import java.util.Random;
+import java.util.Random;
 
 public class Character {
     // Attributes of the Character.
@@ -14,7 +14,7 @@ public class Character {
     private int age; // Does nothing for the character. Just fun detail.
     private String species; // Does nothing for the character. Just fun detail.
     private int job; // 1 = warrior, 2 = mage, 3 = healer, 4 = clown.
-    private int exp; // Current experiance. Maybe use a equation like this to calc levels, XP_required = base_xp * (level^growth_factor).
+    private int exp = 0; // Current experiance. Maybe use a equation like this to calc levels, XP_required = base_xp * (level^growth_factor).
     private int nextLevel = 0; // Default this to 0 so the first level up can happen after the first battle.
     private int level = 1; // Current level. Default is 1.
     private int health; // Hp. Additional determined on hit dice for hp of job.
@@ -205,10 +205,17 @@ public class Character {
         return magic;
     }
 
+    // This function returns the character's level.
+    public int getLevel() {
+        return level;
+    }
+
     // Function to test to see if the character is dead.
     public boolean isDead() {
         // Return true if the character has been defeated.
         if (health <= 0) {
+            // If the character is dead also set their health to 0.
+            health = 0;
             return true;
         } else {
             return false; // We are still in this.
@@ -249,6 +256,113 @@ public class Character {
         health = maxHealth;
         magic = maxMagic;
         // Now return.
+        return;
+    }
+
+    // This function sets the stats after a level up.
+    public void setLeveledStats() {
+        // Create a new random variable.
+        Random random = new Random();
+
+        // Set them based on job.
+        switch (job) {
+            case 1:
+                // Warrior upgrade stats.
+                maxHealth += (random.nextInt(hitDiceHp) + 1) * 10;
+                maxMagic += (random.nextInt(hitDiceMp) + 1) * 10;
+                offence += random.nextInt(hitDiceHp) + 1;
+                defence += random.nextInt(hitDiceHp) + 1;
+                strength += random.nextInt(hitDiceHp) + 1;
+                resistance += random.nextInt(hitDiceHp) + 1;
+                mind += random.nextInt(hitDiceMp) + 1;
+                spirit += random.nextInt(hitDiceMp) + 1;
+                intellect += random.nextInt(hitDiceMp) + 1;
+            case 2:
+                // Mage upgrade stats.
+                maxHealth += (random.nextInt(hitDiceHp) + 1) * 10;
+                maxMagic += (random.nextInt(hitDiceMp) + 1) * 10;
+                offence += random.nextInt(hitDiceHp) + 1;
+                defence += random.nextInt(hitDiceHp) + 1;
+                strength += random.nextInt(hitDiceHp) + 1;
+                resistance += random.nextInt(hitDiceHp) + 1;
+                mind += random.nextInt(hitDiceMp) + 1;
+                spirit += random.nextInt(hitDiceHp) + 1;
+                intellect += random.nextInt(hitDiceMp) + 1;
+            case 3:
+                // Healer upgrade stats.
+                maxHealth += (random.nextInt(hitDiceHp) + 1) * 10;
+                maxMagic += (random.nextInt(hitDiceMp) + 1) * 10;
+                offence += random.nextInt(hitDiceHp) + 1;
+                defence += random.nextInt(hitDiceHp) + 1;
+                strength += random.nextInt(hitDiceHp) + 1;
+                resistance += random.nextInt(hitDiceHp) + 1;
+                mind += random.nextInt(hitDiceHp) + 1;
+                spirit += random.nextInt(hitDiceMp) + 1;
+                intellect += random.nextInt(hitDiceMp) + 1;
+            case 4:
+                // Create a very special random int that determines what he gets.
+                int detemination = random.nextInt(2) + 1;
+                // Clown upgrade stats. These get a little crazy.
+                maxHealth += (random.nextInt(hitDiceHp) + 1) * 10;
+                maxMagic += (random.nextInt(hitDiceMp) + 1) * 10;
+                if (detemination == 1){
+                    offence += random.nextInt(hitDiceHp) + 1;
+                } else {
+                    offence += random.nextInt(hitDiceMp) + 1;
+                }
+                if (detemination == 2){
+                    defence += random.nextInt(hitDiceHp) + 1;
+                } else {
+                    defence += random.nextInt(hitDiceMp) + 1;
+                }
+                if (detemination == 2){
+                    strength += random.nextInt(hitDiceHp) + 1;
+                } else {
+                    strength += random.nextInt(hitDiceMp) + 1;
+                }
+                if (detemination == 1){
+                    resistance += random.nextInt(hitDiceHp) + 1;
+                } else {
+                    resistance += random.nextInt(hitDiceMp) + 1;
+                }
+                if (detemination == 2){
+                    mind += random.nextInt(hitDiceHp) + 1;
+                } else {
+                    mind += random.nextInt(hitDiceMp) + 1;
+                }
+                if (detemination == 1){
+                    spirit += random.nextInt(hitDiceHp) + 1;
+                } else {
+                    spirit += random.nextInt(hitDiceMp) + 1;
+                }
+                if (detemination == 2){
+                    intellect += random.nextInt(hitDiceHp) + 1;
+                } else {
+                    intellect += random.nextInt(hitDiceMp) + 1;
+                }
+        }
+    }
+
+    // This function handles leveling up.
+    public void experianceAndLevels(int gainedExp) {
+        // First things first we add our current exp with what came in.
+        exp += gainedExp;
+
+        // Now we test to see if we leveled up, if so we call another function to take care of stat increase.
+        if (exp >= nextLevel) {
+            // Level up the character.
+            level += 1;
+            // Do the equation to set the next level cap.
+            double growthMulti = Math.pow(level, growthFactor);
+
+            // Now do the math.
+            nextLevel = exp * (int) Math.round(growthMulti);
+
+            // Now set the stats.
+            setLeveledStats();
+        }
+
+        // If we don't level up just return for now.
         return;
     }
 }
