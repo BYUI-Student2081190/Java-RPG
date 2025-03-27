@@ -375,4 +375,10 @@ public class Character {
         // If we don't level up just return for now.
         return;
     }
+
+    // Export character data as a String to save in the file.
+    public String characterSaveData() {
+        // Return the string "###---!!!---###" was added as a splitter to easly gain the data again.
+        return firstName + "###---!!!---###" + lastName + "###---!!!---###" + gender + "###---!!!---###" + age + "###---!!!---###" + species + "###---!!!---###" + job + "###---!!!---###" + exp + "###---!!!---###" + nextLevel + "###---!!!---###" + level + "###---!!!---###" + health + "###---!!!---###" + magic + "###---!!!---###" + offence + "###---!!!---###" + defence + "###---!!!---###" + strength + "###---!!!---###" + resistance + "###---!!!---###" + mind + "###---!!!---###" + spirit + "###---!!!---###" + intellect + "###---!!!---###" + vision + "###---!!!---###" + firstTime + "###---!!!---###" + maxHealth + "###---!!!---###" + maxMagic;
+    }
 }

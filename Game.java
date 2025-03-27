@@ -9,6 +9,11 @@ import java.util.Arrays; // This is used for conversions of data.
 import java.util.ArrayList; // Import the ArrayList class to create ArrayLists in program.
 import java.util.HashMap; // Import the HashMap class to create HashMaps, and also to create a storage for enemies and maybe items.
 import java.util.Random; // This allows things to happen by chance.
+import java.io.BufferedWriter; // This allows file writing.
+import java.io.FileWriter; // This helps with writing to a file.
+import java.io.BufferedReader; // This allows me to read a file.
+import java.io.FileReader; // This helps with reading a file.
+import java.io.IOException; // This helps throw an error if a problem occurs while working with the file.
 
 public class Game {
     // Global Variables.
@@ -16,6 +21,7 @@ public class Game {
     private static int gameSpeed = 25; // This changes how fast text flows in the game. This is currrently 25 miliseconds.
     public static Character character; // Default = null. This is the character made by the user for the game.
     private static HashMap<Integer, String> monsterHashMap = new HashMap<>(); // This will store all the monsters.
+    private static String characterDataFile = "characterData.txt";
             
         // This must be at the top, this function clears the console for better UI.
         public static void clearConsole() {
@@ -456,6 +462,7 @@ public class Game {
                 printLetterByLetter("We will treat " + character.getCharacterPronoun() + " right away.");
                 System.out.println();
                 printLetterByLetter("How are you feeling hun? You look like you are doing better. Don't scare me like that! Come back after getting some rest...");
+                printLetterByLetter("Also hun, don't forget to save in the character creator menu. It would be horrible to have you deleted from exsistance.");
                 System.out.println();
                 printLetterByLetter("Press Enter to Continue...");
                 scanner.nextLine();
@@ -465,6 +472,7 @@ public class Game {
                 printLetterByLetter("Sue the Guild Receptionist:");
                 printLetterByLetter("Welcome back hun, looks like you survived. That's a first.");
                 printLetterByLetter("Come back when you want to challege the 'Wizard's' forces again you hear?");
+                printLetterByLetter("Also hun, don't forget to save in the character creator menu. It would be horrible to have you deleted from exsistance.");
                 System.out.println();
                 printLetterByLetter("Press Enter to Continue...");
                 scanner.nextLine();
@@ -649,6 +657,76 @@ public class Game {
             return;
     }
 
+    // This function saves to the Character Data File.
+    private static void saveCharacter() {
+        // Only trigger this if the character is not null.
+        if (character != null) {
+            // Try to write to the file.
+            try {
+                // Use the BufferedWriter along side the FileWriter to open and write to the file.
+                BufferedWriter writer = new BufferedWriter(new FileWriter(characterDataFile));
+                // Obtain the character data to save.
+                String charData;
+
+                charData = character.characterSaveData();
+
+                // Write the data to the file.
+                writer.write(charData);
+
+                // Now at the end close the file.
+                writer.close();
+
+                // Now let the user know their charater was saved.
+                clearConsole();
+                printLetterByLetter("Your character was successfully saved.");
+                printLetterByLetter("Press Enter to Continue...");
+                scanner.nextLine();
+                clearConsole();
+            } catch (IOException e) {
+                // Send a message to the user involving the error.
+                clearConsole();
+                printLetterByLetter("There was a problem saving your character. Could not access save file.");
+                printLetterByLetter("Press Enter to Continue...");
+                scanner.nextLine();
+                clearConsole();
+            }
+        } else {
+            // Tell the user the problem.
+            clearConsole();
+            printLetterByLetter("You don't have a character made yet. Please create one so you can save them.");
+            printLetterByLetter("Press Enter to Continue...");
+            scanner.nextLine();
+            clearConsole();
+        }
+    }
+
+    // This function loads in a Character from the Character Data File.
+    private static void loadCharacter() {
+        // Just like above we are going to try using a BufferedReader to open and read the contents of the file.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(characterDataFile));
+            
+            // Create a string to hold the line we read.
+            String line;
+            
+            // Try printing out what we see on the file with a while loop.
+            clearConsole();
+            printLetterByLetter(reader.readLine());
+            scanner.nextLine();
+            clearConsole();
+
+            //After we are done close the file.
+            reader.close();
+        } catch (IOException e) {
+            // Send a message to the user involving the error.
+            clearConsole();
+            printLetterByLetter("There was a problem saving your character. Could not access save file.");
+            printLetterByLetter("Press Enter to Continue...");
+            scanner.nextLine();
+            clearConsole();
+        }
+    }
+
     // This function contains the Character Menu.
     private static void characterMenu() {
         // Create new menu.
@@ -657,10 +735,10 @@ public class Game {
 
         while (leaveMenu != true) {
             printLetterByLetter("Welcome to the Character Creator!");
-            printLetterByLetter("Here you can make, save, and even load characters you like for the game.");
+            printLetterByLetter("Here you can make, save, and even load an old character you like for the game.");
             printLetterByLetter("What would you like to do today?");
             printLetterByLetter("1.) Create New Character.");
-            printLetterByLetter("2.) Save Created Character.");
+            printLetterByLetter("2.) Save Created Character. (NOTE: This action deletes the previously saved character.)");
             printLetterByLetter("3.) Load In Previous Character.");
             printLetterByLetter("4.) View Current Character.");
             printLetterByLetter("5.) Go Back to Main Menu.");
@@ -685,14 +763,14 @@ public class Game {
                         // Clear the console.
                         clearConsole();
                         // Call the save character function.
-                        printLetterByLetter("Lets save them!"); // Add this later.
+                        saveCharacter(); 
                         // Break the case.
                         break;
                     case 3:
                         // Clear the console.
                         clearConsole();
                         // Call the load character function.
-                        printLetterByLetter("Lets load them!"); // Add this later.
+                        loadCharacter();
                         // Break the case.
                         break;
                     case 4:
